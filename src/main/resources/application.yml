@@ -1,7 +1,7 @@
 
 spring:
   profiles:
-    active: local
+    default: local
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,15 +12,3 @@ spring:
   sql:
     init:
       mode: always
-
----
-
-spring:
-  profiles:
-    active: dev
-
----
-
-spring:
-  profiles:
-    active: prod
