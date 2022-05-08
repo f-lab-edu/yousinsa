@@ -1,4 +1,4 @@
-FROM mysql:latest
+FROM mysql:8.0.29
 
 ENV character-set-server utf8mb4
 ENV collation-server utf8mb4_general_ci
