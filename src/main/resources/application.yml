@@ -1,0 +1,26 @@
+
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306?useSSL=false&serverTimezone=UTC
+    username: root
+    password: password
+
+  sql:
+    init:
+      mode: always
+
+---
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles:
+    active: prod
