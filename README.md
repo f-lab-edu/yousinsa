@@ -5,6 +5,15 @@ MUSINSA 같은 온라인 편집샵 대용량 서버
 
 [Main - No User (1 of 20)](https://ovenapp.io/project/PGw27rPWTmydr8mpmbRVAZYTZurQXuV6#7YCsA)
 
+## Design
+
+### Table
+[Table 설계에 대한 Issue](https://github.com/f-lab-edu/yousinsa/issues/5)
+
+[Table Diagram](https://dbdiagram.io/d/626c11c695e7f23c619ca37d)
+
+<img src="https://user-images.githubusercontent.com/25685282/166242241-7685315d-fc17-4bc4-abce-a65d3a71c318.png" alt="">
+
 ---
 ## 👕 프로젝트 중점사항
 
