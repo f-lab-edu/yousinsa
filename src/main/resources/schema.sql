@@ -1,17 +1,16 @@
-USE yousinsa;
-
+USE `yousinsa`;
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS sample;
-CREATE TABLE sample
+DROP TABLE IF EXISTS `sample`;
+CREATE TABLE `sample`
 (
     `id`      INTEGER AUTO_INCREMENT NOT NULL,
     `comment` TEXT,
     PRIMARY KEY (`id`)
 );
 
-DROP TABLE IF EXISTS users;
-CREATE TABLE users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`
 (
     `id`                 bigint PRIMARY KEY AUTO_INCREMENT,
     `user_name`          varchar(255),
@@ -22,8 +21,8 @@ CREATE TABLE users
     `updated_at`         timestamp
 );
 
-DROP TABLE IF EXISTS stores;
-CREATE TABLE stores
+DROP TABLE IF EXISTS `stores`;
+CREATE TABLE `stores`
 (
     `id`           bigint PRIMARY KEY AUTO_INCREMENT,
     `store_name`   varchar(255),
@@ -33,8 +32,8 @@ CREATE TABLE stores
     `updated_at`   timestamp
 );
 
-DROP TABLE IF EXISTS products;
-CREATE TABLE products
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products`
 (
     `id`                 bigint PRIMARY KEY AUTO_INCREMENT,
     `store_id`           bigint,
@@ -48,8 +47,8 @@ CREATE TABLE products
     `updated_at`         timestamp
 );
 
-DROP TABLE IF EXISTS orders;
-CREATE TABLE orders
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`
 (
     `id`           bigint PRIMARY KEY AUTO_INCREMENT,
     `buyer_id`     bigint,
@@ -58,8 +57,8 @@ CREATE TABLE orders
     `updated_at`   timestamp
 );
 
-DROP TABLE IF EXISTS order_products;
-CREATE TABLE order_products
+DROP TABLE IF EXISTS `order_products`;
+CREATE TABLE `order_products`
 (
     `id`         bigint PRIMARY KEY AUTO_INCREMENT,
     `order_id`   bigint,
@@ -69,8 +68,8 @@ CREATE TABLE order_products
     `updated_at` timestamp
 );
 
-DROP TABLE IF EXISTS reviews;
-CREATE TABLE reviews
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE `reviews`
 (
     `id`          bigint PRIMARY KEY AUTO_INCREMENT,
     `product_id`  bigint,
@@ -80,8 +79,8 @@ CREATE TABLE reviews
     `updated_at`  timestamp
 );
 
-DROP TABLE IF EXISTS events;
-CREATE TABLE events
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE `events`
 (
     `id`            bigint PRIMARY KEY AUTO_INCREMENT,
     `event_type`    varchar(255),
@@ -92,8 +91,8 @@ CREATE TABLE events
     `updated_at`    timestamp
 );
 
-DROP TABLE IF EXISTS favorites;
-CREATE TABLE favorites
+DROP TABLE IF EXISTS `favorites`;
+CREATE TABLE `favorites`
 (
     `id`         bigint PRIMARY KEY AUTO_INCREMENT,
     `product_id` bigint,
@@ -101,8 +100,8 @@ CREATE TABLE favorites
     `created_at` timestamp
 );
 
-DROP TABLE IF EXISTS product_detail_images;
-CREATE TABLE product_detail_images
+DROP TABLE IF EXISTS `product_detail_images`;
+CREATE TABLE `product_detail_images`
 (
     `id`         bigint PRIMARY KEY AUTO_INCREMENT,
     `product_id` bigint,
@@ -111,8 +110,8 @@ CREATE TABLE product_detail_images
     `updated_at` timestamp
 );
 
-DROP TABLE IF EXISTS sub_categories;
-CREATE TABLE sub_categories
+DROP TABLE IF EXISTS `sub_categories`;
+CREATE TABLE `sub_categories`
 (
     `id`            bigint PRIMARY KEY AUTO_INCREMENT,
     `category_name` varchar(255),
@@ -121,8 +120,8 @@ CREATE TABLE sub_categories
     `updated_at`    timestamp
 );
 
-DROP TABLE IF EXISTS carts;
-CREATE TABLE carts
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE `carts`
 (
     `id`         bigint PRIMARY KEY AUTO_INCREMENT,
     `user_id`    bigint,
@@ -131,71 +130,71 @@ CREATE TABLE carts
     `updated_at` timestamp
 );
 
-DROP TABLE IF EXISTS event_products;
-CREATE TABLE event_products
+DROP TABLE IF EXISTS `event_products`;
+CREATE TABLE `event_products`
 (
     `id`         bigint PRIMARY KEY AUTO_INCREMENT,
     `product_id` bigint,
     `event_id`   bigint
 );
 
-ALTER TABLE stores
+ALTER TABLE `stores`
     ADD FOREIGN KEY (`store_owner`) REFERENCES `users` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE products
+ALTER TABLE `products`
     ADD FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE products
+ALTER TABLE `products`
     ADD FOREIGN KEY (`sub_category_id`) REFERENCES `sub_categories` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE products
+ALTER TABLE `products`
     ADD FOREIGN KEY (`thumbnail_image_id`) REFERENCES `product_detail_images` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE orders
+ALTER TABLE `orders`
     ADD FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE order_products
+ALTER TABLE `order_products`
     ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE order_products
+ALTER TABLE `order_products`
     ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE reviews
+ALTER TABLE `reviews`
     ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE reviews
+ALTER TABLE `reviews`
     ADD FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE favorites
+ALTER TABLE `favorites`
     ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE favorites
+ALTER TABLE `favorites`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE product_detail_images
+ALTER TABLE `product_detail_images`
     ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE carts
+ALTER TABLE `carts`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE event_products
+ALTER TABLE `event_products`
     ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE event_products
+ALTER TABLE `event_products`
     ADD FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 

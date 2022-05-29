@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:8738/yousinsa?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/yousinsa?useSSL=false&serverTimezone=UTC
     username: root
     password: password
 
@@ -19,14 +19,15 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 logging:
   level:
     org:
       hibernate:
         SQL: debug
+        type: trace
