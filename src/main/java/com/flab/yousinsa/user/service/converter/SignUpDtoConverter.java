@@ -9,11 +9,11 @@ import com.flab.yousinsa.user.domain.entities.UserEntity;
 @Component
 public class SignUpDtoConverter {
 
-	public UserEntity convertSignUpRequestToUser(SignUpRequestDto signUpRequest) {
+	public UserEntity convertSignUpRequestToUser(SignUpRequestDto signUpRequest, String hashedPassword) {
 		UserEntity signUpUser = new UserEntity(
 			signUpRequest.getUserName(),
 			signUpRequest.getUserEmail(),
-			signUpRequest.getUserPassword(),
+			hashedPassword,
 			signUpRequest.getUserRole()
 		);
 

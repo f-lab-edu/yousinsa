@@ -38,9 +38,8 @@ public class UserService implements UserSignUpService {
 		validateSignUser(signUpRequest);
 
 		String hashedPassword = passwordEncoder.hashPassword(signUpRequest.getUserPassword());
-		signUpRequest.setUserPassword(hashedPassword);
 
-		UserEntity newUser = signUpDtoConverter.convertSignUpRequestToUser(signUpRequest);
+		UserEntity newUser = signUpDtoConverter.convertSignUpRequestToUser(signUpRequest, hashedPassword);
 
 		UserEntity savedUser = userRepository.save(newUser);
 
