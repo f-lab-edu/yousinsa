@@ -2,7 +2,6 @@ package com.flab.yousinsa.user.service.impl;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
@@ -41,6 +40,8 @@ class UserServiceTest {
 
 	UserEntity user;
 
+	final String HashedPassword = "hashedPassword";
+
 	@BeforeEach
 	public void setUp() {
 		user = new UserEntity("key", "rlfbd5142@gmail.com", "hashedPassword", UserRole.BUYER);
@@ -56,14 +57,20 @@ class UserServiceTest {
 			user.getUserRole());
 
 		given(userRepository.save(any(UserEntity.class))).willReturn(user);
-		given(signUpDtoConverter.convertSignUpRequestToUser(any(SignUpRequestDto.class))).willReturn(user);
+		given(passwordEncoder.hashPassword(signUpRequestDto.getUserPassword())).willReturn(HashedPassword);
+		given(signUpDtoConverter.convertSignUpRequestToUser(any(SignUpRequestDto.class), eq(HashedPassword)))
+			.willReturn(user);
 		given(signUpDtoConverter.convertUserToSignUpResponse(any(UserEntity.class))).willReturn(signUpResponseDto);
-		given(passwordEncoder.hashPassword(signUpRequestDto.getUserPassword())).willReturn("hashedPassword");
 
 		// when
 		SignUpResponseDto resultResponse = userService.trySignUpUser(signUpRequestDto);
 
 		// then
+		then(userRepository).should().save(user);
+		then(passwordEncoder).should().hashPassword(signUpRequestDto.getUserPassword());
+		then(signUpDtoConverter).should().convertSignUpRequestToUser(signUpRequestDto, HashedPassword);
+		then(signUpDtoConverter).should().convertUserToSignUpResponse(user);
+
 		assertThat(resultResponse.getUserName()).isEqualTo(signUpResponseDto.getUserName());
 		assertThat(resultResponse.getUserEmail()).isEqualTo(signUpResponseDto.getUserEmail());
 		assertThat(resultResponse.getUserRole()).isEqualTo(signUpResponseDto.getUserRole());
@@ -81,5 +88,8 @@ class UserServiceTest {
 		Assertions.assertThrows(SignUpFailException.class, () -> {
 			SignUpResponseDto savedUser = userService.trySignUpUser(signUpRequestDto);
 		});
+
+		then(userRepository).should().findByUserEmail(signUpRequestDto.getUserEmail());
+		then(userRepository).should(never()).save(user);
 	}
 }
