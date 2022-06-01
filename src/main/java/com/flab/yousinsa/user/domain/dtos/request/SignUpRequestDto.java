@@ -36,10 +36,6 @@ public class SignUpRequestDto {
 		return userPassword;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
-
 	public UserRole getUserRole() {
 		return userRole;
 	}
