@@ -10,10 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 @Configuration
 @ConfigurationProperties(prefix = "spring.messages")
