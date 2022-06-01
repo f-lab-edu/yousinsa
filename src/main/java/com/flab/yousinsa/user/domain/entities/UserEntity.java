@@ -25,6 +25,29 @@ import com.flab.yousinsa.user.domain.enums.UserRole;
 @Table(name = "users")
 public class UserEntity {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private Long id;
+	@NotNull
+	@Column(name = "user_name")
+	private String userName;
+	@NotNull
+	@Email
+	@Column(name = "user_email")
+	private String userEmail;
+	@NotNull
+	@Column(name = "user_password")
+	private String userPassword;
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "user_role")
+	private UserRole userRole;
+	@CreatedDate
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
+	@LastModifiedDate
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
+
 	public UserEntity() {
 	}
 
@@ -34,35 +57,6 @@ public class UserEntity {
 		this.userPassword = userPassword;
 		this.userRole = userRole;
 	}
-
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Long id;
-
-	@NotNull
-	@Column(name = "user_name")
-	private String userName;
-
-	@NotNull
-	@Email
-	@Column(name = "user_email")
-	private String userEmail;
-
-	@NotNull
-	@Column(name = "user_password")
-	private String userPassword;
-
-	@Enumerated(value = EnumType.STRING)
-	@Column(name = "user_role")
-	private UserRole userRole;
-
-	@CreatedDate
-	@Column(name = "created_at")
-	private LocalDateTime createdAt;
-
-	@LastModifiedDate
-	@Column(name = "updated_at")
-	private LocalDateTime updatedAt;
 
 	public Long getId() {
 		return id;

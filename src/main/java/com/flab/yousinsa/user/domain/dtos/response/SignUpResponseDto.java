@@ -4,17 +4,17 @@ import com.flab.yousinsa.user.domain.enums.UserRole;
 
 public class SignUpResponseDto {
 
+	private Long id;
+	private String userName;
+	private String userEmail;
+	private UserRole userRole;
+
 	public SignUpResponseDto(Long id, String userName, String userEmail, UserRole userRole) {
 		this.id = id;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userRole = userRole;
 	}
-
-	private Long id;
-	private String userName;
-	private String userEmail;
-	private UserRole userRole;
 
 	public Long getId() {
 		return id;

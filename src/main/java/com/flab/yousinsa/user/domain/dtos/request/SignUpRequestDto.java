@@ -4,6 +4,11 @@ import com.flab.yousinsa.user.domain.enums.UserRole;
 
 public class SignUpRequestDto {
 
+	private String userName;
+	private String userEmail;
+	private String userPassword;
+	private UserRole userRole;
+
 	public SignUpRequestDto(String userName, String userEmail, String userPassword, UserRole userRole) {
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -11,37 +16,32 @@ public class SignUpRequestDto {
 		this.userRole = userRole;
 	}
 
-	private String userName;
-	private String userEmail;
-	private String userPassword;
-	private UserRole userRole;
-
 	public String getUserName() {
 		return userName;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public UserRole getUserRole() {
-		return userRole;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
+	public String getUserEmail() {
+		return userEmail;
+	}
+
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
 
+	public String getUserPassword() {
+		return userPassword;
+	}
+
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
 	public void setUserRole(UserRole userRole) {

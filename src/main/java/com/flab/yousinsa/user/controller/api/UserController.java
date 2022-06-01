@@ -14,8 +14,8 @@ import com.flab.yousinsa.user.service.contract.UserSignUpService;
 @RestController
 public class UserController {
 
-	private final UserSignUpService userService;
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private final UserSignUpService userService;
 
 	public UserController(UserSignUpService userService) {
 		this.userService = userService;
