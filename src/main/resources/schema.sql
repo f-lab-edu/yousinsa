@@ -1,5 +1,5 @@
 USE `yousinsa`;
-SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS `sample`;
 CREATE TABLE `sample`
@@ -12,13 +12,13 @@ CREATE TABLE `sample`
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`
 (
-    `id`                 bigint PRIMARY KEY AUTO_INCREMENT,
-    `user_name`          varchar(255),
-    `user_email`         varchar(255),
-    `user_password`      varchar(255),
-    `user_role`          ENUM ('BUYER', 'STORE_OWNER', 'ADMIN'),
-    `created_at`         timestamp,
-    `updated_at`         timestamp
+    `id`            bigint PRIMARY KEY AUTO_INCREMENT,
+    `user_name`     varchar(255),
+    `user_email`    varchar(255),
+    `user_password` varchar(255),
+    `user_role`     ENUM ('BUYER', 'STORE_OWNER', 'ADMIN'),
+    `created_at`    timestamp,
+    `updated_at`    timestamp
 );
 
 DROP TABLE IF EXISTS `stores`;
@@ -198,4 +198,4 @@ ALTER TABLE `event_products`
     ADD FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
         ON DELETE CASCADE ON UPDATE CASCADE;
 
-SET FOREIGN_KEY_CHECKS=1;
+SET FOREIGN_KEY_CHECKS = 1;

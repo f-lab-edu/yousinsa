@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-public class CustomCryptPasswordEncoder implements PasswordEncoder{
+public class CustomCryptPasswordEncoder implements PasswordEncoder {
 
 	private final String SHA_512 = "SHA-512";
 

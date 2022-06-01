@@ -1,14 +1,9 @@
 package com.flab.yousinsa.user.service.impl;
 
-import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
-import com.flab.yousinsa.user.domain.dtos.response.SignUpResponseDto;
-import com.flab.yousinsa.user.domain.entities.UserEntity;
-import com.flab.yousinsa.user.domain.enums.UserRole;
-import com.flab.yousinsa.user.repository.contract.UserRepository;
-import com.flab.yousinsa.user.service.PasswordEncoder;
-import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import com.flab.yousinsa.user.service.exception.SignUpFailException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,11 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
+import com.flab.yousinsa.user.domain.dtos.response.SignUpResponseDto;
+import com.flab.yousinsa.user.domain.entities.UserEntity;
+import com.flab.yousinsa.user.domain.enums.UserRole;
+import com.flab.yousinsa.user.repository.contract.UserRepository;
+import com.flab.yousinsa.user.service.PasswordEncoder;
+import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
+import com.flab.yousinsa.user.service.exception.SignUpFailException;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
