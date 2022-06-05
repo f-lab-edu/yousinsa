@@ -15,7 +15,7 @@ CREATE TABLE `users`
     `id`            bigint PRIMARY KEY AUTO_INCREMENT,
     `user_name`     varchar(255),
     `user_email`    varchar(255),
-    `user_password` varchar(255),
+    `user_password` varchar(512),
     `user_role`     ENUM ('BUYER', 'STORE_OWNER', 'ADMIN'),
     `created_at`    timestamp,
     `updated_at`    timestamp
