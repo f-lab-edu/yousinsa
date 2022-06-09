@@ -108,10 +108,31 @@ MUSINSA 같은 온라인 편집샵 대용량 서버
 - v3 : 성능 개선(극한 상황에 대한 테스트)
     - 부하 테스트
     - 쿼리 최적화
+    - MSA로 가기 위한 준비
+
+
+- v4 : Monolithic to MSA(MicroService Architecture)
+    - Monolithic보다 더 유연성 있는 구조와 패턴 적용(Scale-out 고려)
+    - MSA와 관련된 Test
+    - CQRS
 
 ---
 
 ## 🦺 Project History
+
+<details>
+<summary>[2022.06.10] Version에 대한 정의 추가</summary>
+<div markdown="1">
+
+- [x] Version(Phase)에 대한 정의 추가
+    - Version 1, 2, 3, 4
+
+
+- [x] v1 Schedule에 대한 부분 등록
+    - https://github.com/f-lab-edu/yousinsa/milestones
+
+</div>
+</details>
 
 <details>
 <summary>[2022.04.13] 시작 ReadMe 작성</summary>
@@ -122,23 +143,24 @@ MUSINSA 같은 온라인 편집샵 대용량 서버
 - [x]  Category - 상의, 하의, 아우터 (이 안에서도 추리기)
 - [x]  우리만의 프로젝트 중점 사항 정하기
 
-      **[예시]**
-    
-        - Spring MVC 기능을 충분하고 잘 활용하기
-        - Coding Convention 정하기
-        - OOP와 관련된 원칙들을 준수
-        - 테스트가 쉬운 코드를 작성
-        - 백엔드 실무에서 발생할 수 있는 문제를 해결할 수 있도록 설계하기
+**[예시]**
+
+       - Spring MVC 기능을 충분하고 잘 활용하기
+       - Coding Convention 정하기
+       - OOP와 관련된 원칙들을 준수
+       - 테스트가 쉬운 코드를 작성
+       - 백엔드 실무에서 발생할 수 있는 문제를 해결할 수 있도록 설계하기
 
 - [x]  Role 정리
 - [x]  문제 상황 Simulation
 
-      **[예시]**
-    
-        - 한정 판매로 정해진 수량의 물품만 판매 - 수량의 제한
-        - 결제 데이터가 많은 경우 정산에 대한 처리 시간 문제
-        - 이벤트 시 한번의 트래픽이 몰리는 경우
-        - 결제 도중 시스템이 다운될 경우에 대한 결제에 대한 롤백 처리
-        - 어쩔 수 없이 서버가 다운되는 경우에 대한 Fail-Over 테스트
+**[예시]**
+
+       - 한정 판매로 정해진 수량의 물품만 판매 - 수량의 제한
+       - 결제 데이터가 많은 경우 정산에 대한 처리 시간 문제
+       - 이벤트 시 한번의 트래픽이 몰리는 경우
+       - 결제 도중 시스템이 다운될 경우에 대한 결제에 대한 롤백 처리
+       - 어쩔 수 없이 서버가 다운되는 경우에 대한 Fail-Over 테스트
+
 </div>
 </details>
