@@ -41,8 +41,8 @@ MUSINSA 같은 온라인 편집샵 대용량 서버
 
 - Code Convention을 준수
 - OOP와 관련된 원칙들을 준수
-- 테스트 가능하도록 설계
-- 리팩토링
+- 테스트가 쉽도록 설계 준수
+- Layer에 대한 구분 준수
 
 ### 문제 상황 Simulation
 
@@ -90,6 +90,24 @@ MUSINSA 같은 온라인 편집샵 대용량 서버
 
 - admin은 `입점 신청을 수락`할 수 있다.
 - admin은 `모든 User의 정보를 조회` 할 수 있다.
+
+---
+
+## 🩳 Version Definition
+
+- v1 : 기획 구현과 테스트를 중점으로 개발
+    - Unit Test
+    - Integration Test
+
+
+- v2 : 리팩토링(구조 개선)
+    - 확장에 유연하도록 개선
+    - 관련된 Spring Module 적용
+
+
+- v3 : 성능 개선(극한 상황에 대한 테스트)
+    - 부하 테스트
+    - 쿼리 최적화
 
 ---
 
