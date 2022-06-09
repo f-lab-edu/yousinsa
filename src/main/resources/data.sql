@@ -1,1 +1,2 @@
-INSERT INTO `sample` (comment) VALUES ('sample');
+INSERT INTO `sample` (comment)
+VALUES ('sample');
