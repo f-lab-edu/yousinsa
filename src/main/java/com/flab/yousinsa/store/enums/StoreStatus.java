@@ -1,4 +1,8 @@
 package com.flab.yousinsa.store.enums;
 
-public class StoreStatus {
+public enum StoreStatus {
+	REQUESTED,
+	ACCEPTED,
+	REJECTED,
+	PENDING
 }
