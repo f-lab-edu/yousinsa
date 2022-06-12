@@ -1,25 +1,34 @@
 echo "---build start---"
 
-stage('Checkout Stage') {
-    echo "---Checkout Stage---"
+stages
+{
+    stage('Git Pull Stage') {
+        print('Git Pull Stage')
 
-    echo "---Checkout Stage END---"
+
+
+        print('Git Pull Stage END')
+    }
+
+    stage('Run Unit tests') {
+        print('Run Unit Test Stage')
+
+        print('Run Unit Test Stage END')
+    }
+
+    stage('Build Stage') {
+        print('Build Stage')
+
+        print('Build Stage END')
+    }
+
+    stage('Deploy Stage') {
+        print('Deploy Stage')
+
+        print('Deploy Stage END')
+    }
 }
 
-stage('Run tests') {
-    echo "---Run Test Stage---"
-
-    echo "---Run Test Stage END---"
-}
-
-stage('Build Stage') {
-    echo "---Build Stage---"
-
-    echo "---Build Stage END---"
-}
-
-stage('Push Stage') {
-    echo "---Push Stage---"
-
-    echo "---Push Stage END---"
+void print(message) {
+    echo "---${message}---"
 }
