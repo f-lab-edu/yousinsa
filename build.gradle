@@ -23,16 +23,29 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
         
     compileOnly 'org.projectlombok:lombok'
-    
+
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
-    
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+tasks.named('unitTest') {
+    outputs.dir snippetsDir
+    useJUnitPlatform {
+        includeTags 'unit'
+        excludeTags 'integration'
+    }
+}
+
+tasks.named('integrationTest') {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
 }
 
 tasks.named('test') {
