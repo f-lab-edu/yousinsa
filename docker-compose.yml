@@ -1,4 +1,17 @@
 services:
+  app:
+    container_name: yousinsa-app
+    image: openjdk:11-jdk
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: [ "./gradlew", "bootrun" ]
+    depenes_on:
+      - db
+    restart: always
+
   db:
     container_name: mysql-db
     image: mysql:8.0.29
