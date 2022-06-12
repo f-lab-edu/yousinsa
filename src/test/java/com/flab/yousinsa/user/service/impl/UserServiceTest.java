@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.flab.yousinsa.annotation.UnitTest;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
 import com.flab.yousinsa.user.domain.dtos.response.SignUpResponseDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
@@ -48,6 +49,7 @@ class UserServiceTest {
 	}
 
 	@Test
+	@UnitTest
 	@DisplayName("같은 이메일을 가진 유저가 없어 정상적으로 회원가입 되는 경우")
 	public void signUpNoUserEmailTest() {
 		// given
@@ -77,6 +79,7 @@ class UserServiceTest {
 	}
 
 	@Test
+	@UnitTest
 	@DisplayName("같은 이메일을 가진 유저가 있어 회원가입이 안되는 경우")
 	public void signUpSameEmailUserExistTest() {
 		// given
