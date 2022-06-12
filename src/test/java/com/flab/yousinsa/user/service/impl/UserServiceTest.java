@@ -48,8 +48,8 @@ class UserServiceTest {
 		user = new UserEntity("key", "rlfbd5142@gmail.com", "hashedPassword", UserRole.BUYER);
 	}
 
-	@Test
 	@UnitTest
+	@Test
 	@DisplayName("같은 이메일을 가진 유저가 없어 정상적으로 회원가입 되는 경우")
 	public void signUpNoUserEmailTest() {
 		// given
@@ -78,8 +78,8 @@ class UserServiceTest {
 		assertThat(resultResponse.getUserRole()).isEqualTo(signUpResponseDto.getUserRole());
 	}
 
-	@Test
 	@UnitTest
+	@Test
 	@DisplayName("같은 이메일을 가진 유저가 있어 회원가입이 안되는 경우")
 	public void signUpSameEmailUserExistTest() {
 		// given
