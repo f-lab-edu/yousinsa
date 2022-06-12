@@ -42,22 +42,39 @@ dependencies {
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
-tasks.named('unitTest') {
+test {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    integrationTest {
+        java.srcDir "$projectDir/src/integrationTest/java"
+        resources.srcDir "$projectDir/src/integrationTest/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    useJUnitPlatform()
+}
+
+check.dependsOn integrationTest
+
+tasks.named('test') {
     outputs.dir snippetsDir
     useJUnitPlatform {
         includeTags 'unit'
         excludeTags 'integration'
     }
-}
-
-tasks.named('integrationTest') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-}
-
-tasks.named('test') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
 }
 
 asciidoctor.doFirst {
