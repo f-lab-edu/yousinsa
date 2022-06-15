@@ -4,6 +4,8 @@ services:
   app:
     container_name: yousinsa-app
     image: openjdk:11-jdk
+    build:
+      context: .
     ports:
       - "8081:8080"
     volumes:
@@ -17,6 +19,8 @@ services:
   db:
     container_name: mysql-db
     image: mysql:8.0.0
+    build:
+      context: .
     restart: always
     environment:
       - MYSQL_DATABASE=yousinsa
