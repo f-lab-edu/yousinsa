@@ -1,4 +1,4 @@
-FROM mysql:8.0.29
+FROM --platform=linux/x86_64 mysql:8.0.29
 
 ENV character-set-server utf8mb4
 ENV collation-server utf8mb4_general_ci
