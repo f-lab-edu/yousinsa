@@ -3,17 +3,15 @@ version: "3"
 services:
   app:
     container_name: yousinsa-app
-    image: openjdk:11-jdk
+    image: yousinsa:0.0.1
     build:
       context: .
+      dockerfile: ./app.Dockerfile
     ports:
       - "8081:8080"
     volumes:
       - ./app:/app
     working_dir: /app
-    command: [ "./gradlew", "bootrun" ]
-    depends_on:
-      - db
     restart: always
 
   db:
@@ -35,3 +33,4 @@ services:
       - ./db:/var/lib/mysql # db 볼륨 처리
     ports:
       - "8738:3306"
+
