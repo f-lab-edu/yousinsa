@@ -23,7 +23,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
   messages:
     basename: i18n/messages/message, i18n/exceptions/exception
