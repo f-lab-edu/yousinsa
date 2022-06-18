@@ -1,0 +1,13 @@
+// index.adoc
+= User API
+:toc: left
+:toclevels: 4
+
+== User
+=== SignUp
+.request
+include::{snippets}/user-signup/http-request.adoc
+
+.response
+include::{snippets}/user-signup/http-response.adoc
+
