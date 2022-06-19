@@ -46,6 +46,10 @@ test {
     useJUnitPlatform()
 }
 
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
 sourceSets {
     integrationTest {
         java.srcDir "$projectDir/src/integrationTest/java"
