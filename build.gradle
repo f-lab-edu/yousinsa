@@ -5,6 +5,10 @@ plugins {
     id 'java'
 }
 
+configurations {
+    asciidoctorExt
+}
+
 group = 'com.flab'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -34,6 +38,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 test {
@@ -41,17 +47,27 @@ test {
     useJUnitPlatform()
 }
 
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
 asciidoctor {
     inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
     dependsOn test
 }
 
-task copyHTML(type: Copy) {
-    dependsOn asciidoctor
-    from "${asciidoctor.outputDir}/html5"
-    into "${sourceSets.main.output.resourcesDir}/static/docs"
+task copyDocument(type: Copy) {
+    dependsOn bootJar
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
 }
 
 bootJar {
-    dependsOn copyHTML
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'BOOT-INF/classes/static/docs'
+    }
+    finalizedBy 'copyDocument'
 }
