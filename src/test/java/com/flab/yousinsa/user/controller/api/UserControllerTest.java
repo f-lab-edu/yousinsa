@@ -50,7 +50,6 @@ class UserControllerTest {
 
 	@BeforeEach
 	public void setUp() {
-
 		user = new UserEntity("key", "rlfbd5142@gmail.com", "hashedPassword", UserRole.BUYER);
 	}
 
@@ -94,5 +93,7 @@ class UserControllerTest {
 					)
 				)
 			);
+
+		then(userSignUpService).should().trySignUpUser(refEq(signUpRequestDto));
 	}
 }
