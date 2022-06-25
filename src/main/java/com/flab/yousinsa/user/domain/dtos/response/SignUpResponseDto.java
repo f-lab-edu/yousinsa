@@ -9,6 +9,9 @@ public class SignUpResponseDto {
 	private String userEmail;
 	private UserRole userRole;
 
+	public SignUpResponseDto() {
+	}
+
 	public SignUpResponseDto(Long id, String userName, String userEmail, UserRole userRole) {
 		this.id = id;
 		this.userName = userName;
