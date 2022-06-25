@@ -17,25 +17,17 @@ services:
     volumes:
       - ./db:/var/lib/mysql # db 볼륨 처리
     ports:
-      - 8738:3306
+      - 8738:3306  
 
-  db:
-    container_name: mysql-db
-    image: mysql:8.0.29
+  app:
+    container_name: yousinsa-app
+    image: rlfbd5142/yousinsa:latest
     build:
       context: .
-    restart: always
-    environment:
-      - MYSQL_DATABASE=yousinsa
-      - MYSQL_ROOT_PASSWORD=password
-      - TZ=Asia/Seoul
-    command:
-      - --default-authentication-plugin=mysql_native_password
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-      - --skip-character-set-client-handshake
-    volumes:
-      - ./db:/var/lib/mysql # db 볼륨 처리
+      dockerfile: ./app.Dockerfile
     ports:
-      - "8738:3306"
-
+      - "8081:8080"
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    restart: always
