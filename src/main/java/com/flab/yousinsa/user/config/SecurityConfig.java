@@ -1,4 +1,4 @@
-package com.flab.yousinsa.user.service.config;
+package com.flab.yousinsa.user.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
