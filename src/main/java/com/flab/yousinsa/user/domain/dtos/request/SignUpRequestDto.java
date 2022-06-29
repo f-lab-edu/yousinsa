@@ -1,13 +1,21 @@
 package com.flab.yousinsa.user.domain.dtos.request;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
 public class SignUpRequestDto {
 
+	@NotEmpty
 	private String userName;
+
+	@NotEmpty
 	private String userEmail;
+
+	@NotEmpty
 	private String userPassword;
-	private UserRole userRole;
+
+	private UserRole userRole = UserRole.BUYER;
 
 	public SignUpRequestDto() {
 	}
