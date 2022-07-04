@@ -5,7 +5,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.flab.yousinsa.annotation.UnitTest;
+import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
 import com.flab.yousinsa.user.domain.dtos.response.SignUpResponseDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
@@ -22,6 +23,7 @@ import com.flab.yousinsa.user.domain.enums.UserRole;
 import com.flab.yousinsa.user.repository.contract.UserRepository;
 import com.flab.yousinsa.user.service.PasswordEncoder;
 import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
+import com.flab.yousinsa.user.service.exception.AuthException;
 import com.flab.yousinsa.user.service.exception.SignUpFailException;
 
 @ExtendWith(MockitoExtension.class)
@@ -88,11 +90,72 @@ class UserSignUpServiceImplTest {
 		given(userRepository.findByUserEmail(any(String.class))).willReturn(Optional.of(user));
 
 		// when, then
-		Assertions.assertThrows(SignUpFailException.class, () -> {
-			SignUpResponseDto savedUser = userSignUpServiceImpl.trySignUpUser(signUpRequestDto);
-		});
+		Assertions.assertThatThrownBy(() -> {
+				SignUpResponseDto savedUser = userSignUpServiceImpl.trySignUpUser(signUpRequestDto);
+			}).isInstanceOf(SignUpFailException.class)
+			.hasMessageContaining("request email is already exists");
 
 		then(userRepository).should().findByUserEmail(signUpRequestDto.getUserEmail());
 		then(userRepository).should(never()).save(user);
 	}
+
+	@UnitTest
+	@Test
+	@DisplayName("로그인 하지 않은 상태로 회원 탈퇴 시도")
+	public void withDrawUserIfNoLogin() {
+		long withDrawUserId = 1L;
+		Assertions.assertThatThrownBy(
+				() -> userSignUpServiceImpl.tryWithdrawUser(null, withDrawUserId)
+			).isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining("To withdraw user, user must be logined");
+	}
+
+	@UnitTest
+	@Test
+	@DisplayName("로그인 한 상태로 유효하지 않은 userId 시도")
+	public void withDrawUserIfLoginInvalidWithdrawUserId() {
+		// given
+		AuthUser authUser = new AuthUser(2L, "mockName", "mockEmail@gmail.com", UserRole.BUYER);
+		Long withDrawUserId = null;
+
+		Assertions.assertThatThrownBy(
+				() -> userSignUpServiceImpl.tryWithdrawUser(authUser, withDrawUserId)
+			).isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining("To withdraw user, valid withdrawUserId must given");
+	}
+
+	@UnitTest
+	@Test
+	@DisplayName("로그인 한 상태로 해당 유저가 아닌 회원 탈퇴 시도")
+	public void withDrawUserIfLoginButDifferentUserId() {
+		// given
+		AuthUser authUser = new AuthUser(2L, "mockName", "mockEmail@gmail.com", UserRole.BUYER);
+
+		// when
+		long withDrawUserId = 1L;
+		Assertions.assertThatThrownBy(
+				() -> userSignUpServiceImpl.tryWithdrawUser(authUser, withDrawUserId)
+			).isInstanceOf(AuthException.class)
+			.hasMessageContaining("Withdrawn userId must be equal to logined UserId");
+	}
+
+	@UnitTest
+	@Test
+	@DisplayName("로그인 한 상태로 해당 유저 회원 탈퇴 시도")
+	public void withDrawUserIfLoginButSameUserId() {
+		// given
+		long withDrawUserId = 1L;
+
+		Optional<UserEntity> userEntityOptional = Optional.of(user);
+		given(userRepository.findById(anyLong())).willReturn(userEntityOptional);
+		willDoNothing().given(userRepository).delete(any(UserEntity.class));
+		AuthUser authUser = new AuthUser(withDrawUserId, user.getUserName(), user.getUserEmail(), UserRole.BUYER);
+
+		// when
+		userSignUpServiceImpl.tryWithdrawUser(authUser, withDrawUserId);
+
+		then(userRepository).should().findById(withDrawUserId);
+		then(userRepository).should().delete(eq(user));
+	}
+
 }
