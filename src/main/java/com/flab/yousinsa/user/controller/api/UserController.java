@@ -8,10 +8,12 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flab.yousinsa.user.controller.annotation.SessionAuth;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.dtos.request.SignInRequestDto;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
@@ -69,5 +71,16 @@ public class UserController {
 		}
 
 		return ResponseEntity.status(HttpStatus.RESET_CONTENT).build();
+	}
+
+	@SessionAuth
+	@DeleteMapping("api/v1/users/{userId}")
+	public ResponseEntity<Void> withDrawUser(AuthUser user, @PathVariable("userId") Long userId,
+		HttpSession httpSession) {
+		userSignUpService.tryWithdrawUser(user, userId);
+
+		httpSession.invalidate();
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
