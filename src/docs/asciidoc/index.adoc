@@ -51,13 +51,16 @@ YOUSINSA REST API에서 사용하는 HTTP Method는 REST 방식으로 작성되�
 | 새 리소스를 성공적으로 생성함. 응답의 `Location` 헤더에 해당 리소스의 URI가 담겨있다.
 
 | `204 No Content`
-| 기존 리소스를 성공적으로 수정함.
+| 기존 리소스의 제거를 성공적으로 수정함.
 
 | `205 Reset Content`
-| 컨텐츠의 갱신이 필요함.
+| 기존 리소스의 제거를 성공적으로 수정함.
 
 | `400 Bad Request`
 | 잘못된 요청을 보낸 경우. 응답 본문에 더 오류에 대한 정보가 담겨있다.
+
+| `401 Unauthorized`
+| 인증이 필요한 리소스
 
 | `404 Not Found`
 | 요청한 리소스가 없음.
@@ -69,6 +72,10 @@ YOUSINSA REST API에서 사용하는 HTTP Method는 REST 방식으로 작성되�
 
 operation::user-signup[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body,response-fields']
 
+=== Withdraw
+
+operation::user-withdraw[snippets='curl-request,http-request,http-response,path-parameters']
+
 === SignIn
 
 operation::user-signin[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body,response-fields']
@@ -76,3 +83,4 @@ operation::user-signin[snippets='curl-request,http-request,http-response,request
 === SignOut
 
 operation::user-signout[snippets='curl-request,http-request,http-response']
+
