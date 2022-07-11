@@ -53,6 +53,9 @@ YOUSINSA REST API에서 사용하는 HTTP Method는 REST 방식으로 작성되�
 | `204 No Content`
 | 기존 리소스를 성공적으로 수정함.
 
+| `205 Reset Content`
+| 컨텐츠의 갱신이 필요함.
+
 | `400 Bad Request`
 | 잘못된 요청을 보낸 경우. 응답 본문에 더 오류에 대한 정보가 담겨있다.
 
@@ -60,9 +63,16 @@ YOUSINSA REST API에서 사용하는 HTTP Method는 REST 방식으로 작성되�
 | 요청한 리소스가 없음.
 |===
 
-== User
+== User-API
 
 === SignUp
 
 operation::user-signup[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body,response-fields']
 
+=== SignIn
+
+operation::user-signin[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body,response-fields']
+
+=== SignOut
+
+operation::user-signout[snippets='curl-request,http-request,http-response']

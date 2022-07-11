@@ -25,7 +25,7 @@ import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
 import com.flab.yousinsa.user.service.exception.SignUpFailException;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserSignUpServiceImplTest {
 
 	@Mock
 	UserRepository userRepository;
@@ -37,7 +37,7 @@ class UserServiceTest {
 	PasswordEncoder passwordEncoder;
 
 	@InjectMocks
-	UserService userService;
+	UserSignUpServiceImpl userSignUpServiceImpl;
 
 	UserEntity user;
 
@@ -65,7 +65,7 @@ class UserServiceTest {
 		given(signUpDtoConverter.convertUserToSignUpResponse(any(UserEntity.class))).willReturn(signUpResponseDto);
 
 		// when
-		SignUpResponseDto resultResponse = userService.trySignUpUser(signUpRequestDto);
+		SignUpResponseDto resultResponse = userSignUpServiceImpl.trySignUpUser(signUpRequestDto);
 
 		// then
 		then(userRepository).should().save(user);
@@ -89,7 +89,7 @@ class UserServiceTest {
 
 		// when, then
 		Assertions.assertThrows(SignUpFailException.class, () -> {
-			SignUpResponseDto savedUser = userService.trySignUpUser(signUpRequestDto);
+			SignUpResponseDto savedUser = userSignUpServiceImpl.trySignUpUser(signUpRequestDto);
 		});
 
 		then(userRepository).should().findByUserEmail(signUpRequestDto.getUserEmail());
