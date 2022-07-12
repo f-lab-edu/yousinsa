@@ -12,7 +12,7 @@ import com.flab.yousinsa.store.enums.StoreStatus;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
-@ActiveProfiles(value = "test")
+@ActiveProfiles(value = "local")
 @DataJpaTest
 class StoreRepositoryTest {
 
