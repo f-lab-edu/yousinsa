@@ -1,4 +1,4 @@
-package com.flab.yousinsa.store.v1.owner.controller;
+package com.flab.yousinsa.store.v1.manage.controller;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -18,8 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
-import com.flab.yousinsa.store.v1.owner.service.OwnerService;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
+import com.flab.yousinsa.store.v1.manage.service.OwnerService;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 

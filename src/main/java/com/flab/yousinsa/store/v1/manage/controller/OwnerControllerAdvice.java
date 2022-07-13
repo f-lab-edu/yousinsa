@@ -1,11 +1,11 @@
-package com.flab.yousinsa.store.v1.owner.controller;
+package com.flab.yousinsa.store.v1.manage.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.flab.yousinsa.store.exceptions.owner.NotValidOwnerException;
+import com.flab.yousinsa.store.exceptions.manage.NotValidOwnerException;
 
 @ControllerAdvice
 public class OwnerControllerAdvice {

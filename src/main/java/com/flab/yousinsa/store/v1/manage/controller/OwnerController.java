@@ -1,4 +1,4 @@
-package com.flab.yousinsa.store.v1.owner.controller;
+package com.flab.yousinsa.store.v1.manage.controller;
 
 import java.net.URI;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
-import com.flab.yousinsa.store.v1.owner.service.OwnerService;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
+import com.flab.yousinsa.store.v1.manage.service.OwnerService;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 
 import lombok.RequiredArgsConstructor;

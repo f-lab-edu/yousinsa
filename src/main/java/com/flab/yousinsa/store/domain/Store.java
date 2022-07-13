@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.flab.yousinsa.store.common.BaseTimeEntity;
+import com.flab.yousinsa.global.common.BaseTimeEntity;
 import com.flab.yousinsa.store.enums.StoreStatus;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 
