@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.flab.yousinsa.store.domain.Store;
 import com.flab.yousinsa.store.domain.StoreRepository;
+import com.flab.yousinsa.store.enums.StoreStatus;
 import com.flab.yousinsa.store.v1.owner.converter.OwnerDtoConverter;
 import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
@@ -43,6 +44,7 @@ class OwnerServiceImplTest {
 	@BeforeEach
 	public void setup() {
 		user = new UserEntity("test","test@test.com","test", UserRole.BUYER);
+		store = Store.builder().storeName("store").storeOwner(user).storeStatus(StoreStatus.REQUESTED).build();
 	}
 
 	@AfterEach
@@ -58,11 +60,13 @@ class OwnerServiceImplTest {
 		request.setStoreName("store");
 
 		given(userRepository.save(any(UserEntity.class))).willReturn(user);
+		given(ownerDtoConverter.convertOwnerRequestToEntity(any(OwnerDto.Post.class), any(UserEntity.class))).willReturn(store);
+		given(storeRepository.save(any(Store.class))).willReturn(store);
 
 		// when
 		Long result = ownerServiceImpl.entryStore(request, user);
 
 		// then
-		Assertions.assertEquals(result, 1L);
+		Assertions.assertEquals(1L, result);
 	}
 }
