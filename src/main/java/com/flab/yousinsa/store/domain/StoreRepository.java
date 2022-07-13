@@ -8,5 +8,5 @@ import com.flab.yousinsa.user.domain.entities.UserEntity;
 @Repository
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
-	boolean findByStoreOwner(UserEntity user);
+	boolean existsByStoreOwner(UserEntity user);
 }

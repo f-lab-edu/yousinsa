@@ -30,7 +30,7 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	private void validateOwner(UserEntity user) {
-		boolean isPresent = storeRepository.findByStoreOwner(user);
+		boolean isPresent = storeRepository.existsByStoreOwner(user);
 		if (isPresent) {
 			throw new NotValidOwnerException("Already exists.");
 		}
