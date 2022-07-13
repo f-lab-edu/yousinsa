@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import com.flab.yousinsa.store.v1.owner.service.OwnerService;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
+@ActiveProfiles("test")
 @WebMvcTest(OwnerController.class)
 class OwnerControllerTest {
 
@@ -70,6 +72,6 @@ class OwnerControllerTest {
 			.andDo(print());
 
 		// then
-		verify(ownerService).entryStore(request, user);
+		verify(ownerService).entryStore(refEq(request), refEq(user));
 	}
 }
