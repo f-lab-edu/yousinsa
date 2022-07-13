@@ -23,7 +23,7 @@ class StoreRepositoryTest {
 
 	@BeforeEach
 	public void setUp() {
-		user = new UserEntity("test","test@test.com","test", UserRole.BUYER);
+		user = new UserEntity("test", "test@test.com", "test", UserRole.BUYER);
 	}
 
 	@Test

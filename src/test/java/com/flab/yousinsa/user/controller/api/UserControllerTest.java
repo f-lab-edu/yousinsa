@@ -47,17 +47,14 @@ import com.flab.yousinsa.user.service.contract.UserSignUpService;
 @MockBean(JpaMetamodelMappingContext.class)
 class UserControllerTest {
 
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@MockBean
-	private UserSignUpService userSignUpService;
-
 	UserEntity user;
 	String rawPassword = "password";
+	@Autowired
+	private MockMvc mockMvc;
+	@Autowired
+	private ObjectMapper objectMapper;
+	@MockBean
+	private UserSignUpService userSignUpService;
 	@MockBean
 	private UserSignInService userSignInService;
 
