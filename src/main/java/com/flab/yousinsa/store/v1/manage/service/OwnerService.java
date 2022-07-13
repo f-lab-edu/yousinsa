@@ -1,6 +1,6 @@
-package com.flab.yousinsa.store.v1.owner.service;
+package com.flab.yousinsa.store.v1.manage.service;
 
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 
 public interface OwnerService {

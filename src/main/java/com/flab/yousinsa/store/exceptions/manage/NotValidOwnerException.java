@@ -1,4 +1,4 @@
-package com.flab.yousinsa.store.exceptions.owner;
+package com.flab.yousinsa.store.exceptions.manage;
 
 public class NotValidOwnerException extends RuntimeException {
 	public NotValidOwnerException(String message) {

@@ -1,13 +1,13 @@
-package com.flab.yousinsa.store.v1.owner.service;
+package com.flab.yousinsa.store.v1.manage.service;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.flab.yousinsa.store.domain.Store;
 import com.flab.yousinsa.store.domain.StoreRepository;
-import com.flab.yousinsa.store.exceptions.owner.NotValidOwnerException;
-import com.flab.yousinsa.store.v1.owner.converter.OwnerDtoConverter;
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
+import com.flab.yousinsa.store.exceptions.manage.NotValidOwnerException;
+import com.flab.yousinsa.store.v1.manage.converter.OwnerDtoConverter;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 
 import lombok.RequiredArgsConstructor;

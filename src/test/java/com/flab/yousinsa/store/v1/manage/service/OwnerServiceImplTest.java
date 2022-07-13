@@ -1,4 +1,4 @@
-package com.flab.yousinsa.store.v1.owner.service;
+package com.flab.yousinsa.store.v1.manage.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -16,8 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.flab.yousinsa.store.domain.Store;
 import com.flab.yousinsa.store.domain.StoreRepository;
 import com.flab.yousinsa.store.enums.StoreStatus;
-import com.flab.yousinsa.store.v1.owner.converter.OwnerDtoConverter;
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
+import com.flab.yousinsa.store.v1.manage.converter.OwnerDtoConverter;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 

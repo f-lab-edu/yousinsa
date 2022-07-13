@@ -1,4 +1,4 @@
-package com.flab.yousinsa.store.common;
+package com.flab.yousinsa.global.common;
 
 import java.time.LocalDateTime;
 

@@ -1,10 +1,10 @@
-package com.flab.yousinsa.store.v1.owner.converter;
+package com.flab.yousinsa.store.v1.manage.converter;
 
 import org.springframework.stereotype.Component;
 
 import com.flab.yousinsa.store.domain.Store;
 import com.flab.yousinsa.store.enums.StoreStatus;
-import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
+import com.flab.yousinsa.store.v1.manage.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 
 @Component
