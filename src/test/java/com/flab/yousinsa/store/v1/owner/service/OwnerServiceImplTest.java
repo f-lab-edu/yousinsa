@@ -1,9 +1,9 @@
 package com.flab.yousinsa.store.v1.owner.service;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,17 +20,13 @@ import com.flab.yousinsa.store.v1.owner.converter.OwnerDtoConverter;
 import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
-import com.flab.yousinsa.user.repository.contract.UserRepository;
 
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class OwnerServiceImplTest {
 
 	@Mock
 	OwnerDtoConverter ownerDtoConverter;
-
-	@Mock
-	UserRepository userRepository;
 
 	@Mock
 	StoreRepository storeRepository;
@@ -44,7 +40,7 @@ class OwnerServiceImplTest {
 	@BeforeEach
 	public void setup() {
 		user = new UserEntity("test","test@test.com","test", UserRole.BUYER);
-		store = Store.builder().storeName("store").storeOwner(user).storeStatus(StoreStatus.REQUESTED).build();
+		store = Store.builder().id(1L).storeName("store").storeOwner(user).storeStatus(StoreStatus.REQUESTED).build();
 	}
 
 	@AfterEach
@@ -59,7 +55,6 @@ class OwnerServiceImplTest {
 		OwnerDto.Post request = new OwnerDto.Post();
 		request.setStoreName("store");
 
-		given(userRepository.save(any(UserEntity.class))).willReturn(user);
 		given(ownerDtoConverter.convertOwnerRequestToEntity(any(OwnerDto.Post.class), any(UserEntity.class))).willReturn(store);
 		given(storeRepository.save(any(Store.class))).willReturn(store);
 
@@ -67,6 +62,6 @@ class OwnerServiceImplTest {
 		Long result = ownerServiceImpl.entryStore(request, user);
 
 		// then
-		Assertions.assertEquals(1L, result);
+		assertThat(result).isEqualTo(1L);
 	}
 }
