@@ -29,21 +29,16 @@ import com.flab.yousinsa.user.service.exception.SignUpFailException;
 @ExtendWith(MockitoExtension.class)
 class UserSignUpServiceImplTest {
 
+	final String HashedPassword = "hashedPassword";
 	@Mock
 	UserRepository userRepository;
-
 	@Mock
 	SignUpDtoConverter signUpDtoConverter;
-
 	@Mock
 	PasswordEncoder passwordEncoder;
-
 	@InjectMocks
 	UserSignUpServiceImpl userSignUpServiceImpl;
-
 	UserEntity user;
-
-	final String HashedPassword = "hashedPassword";
 
 	@BeforeEach
 	public void setUp() {

@@ -39,7 +39,7 @@ class OwnerServiceImplTest {
 
 	@BeforeEach
 	public void setup() {
-		user = new UserEntity("test","test@test.com","test", UserRole.BUYER);
+		user = new UserEntity("test", "test@test.com", "test", UserRole.BUYER);
 		store = Store.builder().id(1L).storeName("store").storeOwner(user).storeStatus(StoreStatus.REQUESTED).build();
 	}
 
@@ -55,7 +55,9 @@ class OwnerServiceImplTest {
 		OwnerDto.Post request = new OwnerDto.Post();
 		request.setStoreName("store");
 
-		given(ownerDtoConverter.convertOwnerRequestToEntity(any(OwnerDto.Post.class), any(UserEntity.class))).willReturn(store);
+		given(
+			ownerDtoConverter.convertOwnerRequestToEntity(any(OwnerDto.Post.class), any(UserEntity.class))).willReturn(
+			store);
 		given(storeRepository.save(any(Store.class))).willReturn(store);
 
 		// when

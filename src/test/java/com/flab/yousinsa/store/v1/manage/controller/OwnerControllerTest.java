@@ -42,7 +42,7 @@ class OwnerControllerTest {
 
 	@BeforeEach
 	public void setup() {
-		user = new UserEntity("test","test@test.com","test", UserRole.BUYER);
+		user = new UserEntity("test", "test@test.com", "test", UserRole.BUYER);
 		session = new MockHttpSession();
 		session.setAttribute("user", user);
 	}
