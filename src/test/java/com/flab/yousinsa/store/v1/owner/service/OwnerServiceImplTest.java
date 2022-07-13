@@ -8,31 +8,37 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
+import com.flab.yousinsa.store.domain.Store;
 import com.flab.yousinsa.store.domain.StoreRepository;
 import com.flab.yousinsa.store.v1.owner.converter.OwnerDtoConverter;
 import com.flab.yousinsa.store.v1.owner.dtos.OwnerDto;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
+import com.flab.yousinsa.user.repository.contract.UserRepository;
 
-@ExtendWith(SpringExtension.class)
-@Import({OwnerDtoConverter.class, OwnerServiceImpl.class})
+@ActiveProfiles("local")
+@ExtendWith(MockitoExtension.class)
 class OwnerServiceImplTest {
 
-	@Autowired
+	@Mock
 	OwnerDtoConverter ownerDtoConverter;
 
-	@Autowired
-	OwnerServiceImpl ownerService;
+	@Mock
+	UserRepository userRepository;
 
-	@MockBean
+	@Mock
 	StoreRepository storeRepository;
 
+	@InjectMocks
+	OwnerServiceImpl ownerServiceImpl;
+
 	UserEntity user;
+	Store store;
 
 	@BeforeEach
 	public void setup() {
@@ -51,10 +57,10 @@ class OwnerServiceImplTest {
 		OwnerDto.Post request = new OwnerDto.Post();
 		request.setStoreName("store");
 
-		given(ownerService.entryStore(request, user)).willReturn(1L);
+		given(userRepository.save(any(UserEntity.class))).willReturn(user);
 
 		// when
-		Long result = ownerService.entryStore(request, user);
+		Long result = ownerServiceImpl.entryStore(request, user);
 
 		// then
 		Assertions.assertEquals(result, 1L);
