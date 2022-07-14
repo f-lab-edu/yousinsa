@@ -84,3 +84,8 @@ operation::user-signin[snippets='curl-request,http-request,http-response,request
 
 operation::user-signout[snippets='curl-request,http-request,http-response']
 
+== Admin-API
+
+=== Accept Store Request
+
+operation::admin-store-accept[snippets='curl-request,http-request,http-response,request-body,request-fields,response-body,response-fields']
