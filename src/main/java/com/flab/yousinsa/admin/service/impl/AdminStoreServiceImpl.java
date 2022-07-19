@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@Transactional
 public class AdminStoreServiceImpl implements AdminStoreService {
 
 	private final StoreRepository storeRepository;
@@ -25,6 +24,7 @@ public class AdminStoreServiceImpl implements AdminStoreService {
 		this.storeDtoConverter = storeDtoConverter;
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Page<AdminStoreDto> getAllStores(Pageable pageRequest) {
 		return storeRepository.findAll(pageRequest)
