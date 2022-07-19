@@ -44,11 +44,9 @@ class AdminStoreRequestServiceImplTest {
 		Long wrongStoreId = 0L;
 		RequestStoreDtoRequest requestStoreDtoRequest = new RequestStoreDtoRequest(wrongStoreId);
 		given(storeRepository.findById(anyLong())).willReturn(Optional.empty());
-		given(storeRequestDtoConverter.convertStoreRequestToStoreId(any(RequestStoreDtoRequest.class))).willReturn(
-			requestStoreDtoRequest.getStoreId());
 
 		// when, given
-		Assertions.assertThatThrownBy(() -> adminStoreRequestService.acceptStoreRequest(requestStoreDtoRequest))
+		Assertions.assertThatThrownBy(() -> adminStoreRequestService.acceptStoreRequest(wrongStoreId))
 			.isInstanceOf(NoValidStoreExistException.class)
 			.hasMessageContaining("no valid store not found");
 	}
@@ -64,11 +62,9 @@ class AdminStoreRequestServiceImplTest {
 		Store store = new Store(1L, "rejectedShop", user, StoreStatus.REJECTED);
 
 		given(storeRepository.findById(anyLong())).willReturn(Optional.of(store));
-		given(storeRequestDtoConverter.convertStoreRequestToStoreId(any(RequestStoreDtoRequest.class))).willReturn(
-			requestStoreDtoRequest.getStoreId());
 
 		// when, given
-		Assertions.assertThatThrownBy(() -> adminStoreRequestService.acceptStoreRequest(requestStoreDtoRequest))
+		Assertions.assertThatThrownBy(() -> adminStoreRequestService.acceptStoreRequest(validStoreId))
 			.isInstanceOf(InvalidStoreStateException.class)
 			.hasMessageContaining("store status is not valid, only for requested");
 	}
@@ -79,25 +75,23 @@ class AdminStoreRequestServiceImplTest {
 	public void acceptStoreRequestWithValidStoreByAdmin() {
 		// given
 		Long validStoreId = 1L;
-		RequestStoreDtoRequest validRequest = new RequestStoreDtoRequest(validStoreId);
+
 		RequestStoreDtoResponse validResponse = new RequestStoreDtoResponse(validStoreId, StoreStatus.ACCEPTED);
 		UserEntity user = new UserEntity("requestedUser", "owner@yousinsa.com", "password", UserRole.STORE_OWNER);
 		Store store = new Store(1L, "requestedShop", user, StoreStatus.REQUESTED);
 
 		given(storeRepository.findById(anyLong())).willReturn(Optional.of(store));
-		given(storeRequestDtoConverter.convertStoreRequestToStoreId(any(RequestStoreDtoRequest.class))).willReturn(
-			validRequest.getStoreId());
+
 		given(storeRequestDtoConverter.convertEntityToResponse(any(Store.class))).willReturn(validResponse);
 
 		// when
-		RequestStoreDtoResponse response = adminStoreRequestService.acceptStoreRequest(validRequest);
+		RequestStoreDtoResponse response = adminStoreRequestService.acceptStoreRequest(validStoreId);
 
 		// then
 		Assertions.assertThat(response.getStoreId()).isEqualTo(validStoreId);
 		Assertions.assertThat(response.getStoreStatus()).isEqualTo(StoreStatus.ACCEPTED);
 
 		then(storeRepository).should().findById(validStoreId);
-		then(storeRequestDtoConverter).should().convertStoreRequestToStoreId(eq(validRequest));
 		then(storeRequestDtoConverter).should().convertEntityToResponse(eq(store));
 	}
 }

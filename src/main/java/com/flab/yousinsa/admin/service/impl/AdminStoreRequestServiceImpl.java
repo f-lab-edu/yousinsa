@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.flab.yousinsa.admin.domain.dtos.RequestStoreDtoRequest;
 import com.flab.yousinsa.admin.domain.dtos.RequestStoreDtoResponse;
 import com.flab.yousinsa.admin.service.contract.AdminStoreRequestService;
 import com.flab.yousinsa.admin.service.converter.StoreRequestDtoConverter;
@@ -31,10 +30,8 @@ public class AdminStoreRequestServiceImpl implements AdminStoreRequestService {
 
 	@Transactional
 	@Override
-	public RequestStoreDtoResponse acceptStoreRequest(RequestStoreDtoRequest requestStoreDtoRequest) {
-		Assert.notNull(requestStoreDtoRequest, "requestStoreDto must be not null");
-
-		Long storeId = storeRequestDtoConverter.convertStoreRequestToStoreId(requestStoreDtoRequest);
+	public RequestStoreDtoResponse acceptStoreRequest(Long storeId) {
+		Assert.notNull(storeId, "storeId must be not null");
 
 		Store requestedStore = storeRepository.findById(storeId).orElseThrow(() -> {
 			log.debug("store id" + storeId + "does not exist");
