@@ -2,11 +2,10 @@ package com.flab.yousinsa.admin.controller.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.flab.yousinsa.admin.domain.dtos.RequestStoreDtoRequest;
 import com.flab.yousinsa.admin.domain.dtos.RequestStoreDtoResponse;
 import com.flab.yousinsa.admin.service.contract.AdminStoreRequestService;
 import com.flab.yousinsa.admin.service.exceptions.NotPermittedException;
@@ -27,13 +26,14 @@ public class AdminRequestStoreController {
 	}
 
 	@SessionAuth
-	@PutMapping("api/admin/v1/store")
+	@PutMapping("api/admin/v1/stores/{storeId}")
 	public ResponseEntity<RequestStoreDtoResponse> acceptStoreRequest(
-		@RequestBody RequestStoreDtoRequest requestStoreDtoRequest, AuthUser user
+		@PathVariable("storeId") Long storeId,
+		AuthUser user
 	) {
 		isAuthUserAdmin(user);
-		
-		RequestStoreDtoResponse response = storeRequestService.acceptStoreRequest(requestStoreDtoRequest);
+
+		RequestStoreDtoResponse response = storeRequestService.acceptStoreRequest(storeId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
 	}
 
