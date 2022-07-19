@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@Transactional
 public class AdminStoreRequestServiceImpl implements AdminStoreRequestService {
 
 	private final StoreRepository storeRepository;
@@ -30,6 +29,7 @@ public class AdminStoreRequestServiceImpl implements AdminStoreRequestService {
 		this.storeRequestDtoConverter = storeRequestDtoConverter;
 	}
 
+	@Transactional
 	@Override
 	public RequestStoreDtoResponse acceptStoreRequest(RequestStoreDtoRequest requestStoreDtoRequest) {
 		Assert.notNull(requestStoreDtoRequest, "requestStoreDto must be not null");
