@@ -89,3 +89,7 @@ operation::user-signout[snippets='curl-request,http-request,http-response']
 === Accept Store Request
 
 operation::admin-store-accept[snippets='curl-request,http-request,http-response,path-parameters,request-fields,response-body,response-fields']
+
+=== Store List
+
+operation::admin-store-list[snippets='curl-request,http-request,http-response,request-parameters,response-body,response-fields']
