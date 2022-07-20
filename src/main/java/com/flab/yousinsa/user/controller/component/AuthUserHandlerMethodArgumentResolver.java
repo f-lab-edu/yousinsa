@@ -1,6 +1,6 @@
 package com.flab.yousinsa.user.controller.component;
 
-import static com.flab.yousinsa.user.config.AuthWebConfig.Session.*;
+import static com.flab.yousinsa.user.controller.aop.AuthenticateAspect.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,14 +11,14 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.flab.yousinsa.user.controller.annotation.SessionAuth;
+import com.flab.yousinsa.user.controller.annotation.SignInUser;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 
 public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		boolean hasSessionAuthAnnotation = parameter.hasMethodAnnotation(SessionAuth.class);
+		boolean hasSessionAuthAnnotation = parameter.hasParameterAnnotation(SignInUser.class);
 		boolean hasAuthUserType = AuthUser.class.isAssignableFrom(parameter.getParameterType());
 		return hasSessionAuthAnnotation && hasAuthUserType;
 	}
@@ -29,9 +29,6 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 
 		HttpServletRequest httpServletRequest = (HttpServletRequest)webRequest.getNativeRequest();
 		HttpSession session = httpServletRequest.getSession(false);
-		if (session == null) {
-			return null;
-		}
 
 		return session.getAttribute(AUTH_USER);
 	}
