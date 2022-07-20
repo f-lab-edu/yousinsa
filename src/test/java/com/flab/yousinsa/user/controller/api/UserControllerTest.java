@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.yousinsa.annotation.UnitTest;
-import com.flab.yousinsa.user.config.AuthWebConfig;
+import com.flab.yousinsa.user.controller.aop.AuthenticateAspect;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.dtos.request.SignInRequestDto;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
@@ -152,7 +152,7 @@ class UserControllerTest {
 				)
 			);
 
-		AuthUser authUser = (AuthUser)mockHttpSession.getAttribute(AuthWebConfig.Session.AUTH_USER);
+		AuthUser authUser = (AuthUser)mockHttpSession.getAttribute(AuthenticateAspect.AUTH_USER);
 		assertThat(authUser.getUserEmail()).isEqualTo(signInResponseDto.getUserEmail());
 		assertThat(authUser.getUserName()).isEqualTo(signInResponseDto.getUserName());
 		assertThat(authUser.getUserRole()).isEqualTo(signInResponseDto.getUserRole());
@@ -168,7 +168,7 @@ class UserControllerTest {
 		MockHttpSession mockHttpSession = new MockHttpSession();
 		SignInResponseDto signInResponseDto = new SignInResponseDto(1L, user.getUserName(), user.getUserEmail(),
 			user.getUserRole());
-		mockHttpSession.setAttribute(AuthWebConfig.Session.AUTH_USER, signInResponseDto);
+		mockHttpSession.setAttribute(AuthenticateAspect.AUTH_USER, signInResponseDto);
 
 		// when
 		ResultActions resultActions = mockMvc.perform(delete("/api/v1/users/sign-out").session(mockHttpSession));
@@ -181,7 +181,7 @@ class UserControllerTest {
 					getDocumentResponse())
 			);
 
-		assertThatThrownBy(() -> mockHttpSession.getAttribute(AuthWebConfig.Session.AUTH_USER))
+		assertThatThrownBy(() -> mockHttpSession.getAttribute(AuthenticateAspect.AUTH_USER))
 			.isInstanceOf(IllegalStateException.class);
 	}
 
@@ -194,7 +194,7 @@ class UserControllerTest {
 		Long deleteTargetUserId = 1L;
 		AuthUser authUser = new AuthUser(deleteTargetUserId, user.getUserName(), user.getUserEmail(),
 			user.getUserRole());
-		mockHttpSession.setAttribute(AuthWebConfig.Session.AUTH_USER, authUser);
+		mockHttpSession.setAttribute(AuthenticateAspect.AUTH_USER, authUser);
 		willDoNothing().given(userSignUpService).tryWithdrawUser(any(AuthUser.class), anyLong());
 
 		// when
@@ -229,25 +229,6 @@ class UserControllerTest {
 		ResultActions resultActions = mockMvc.perform(delete("/api/v1/users/sign-out"));
 
 		// then
-		resultActions.andExpect(status().isUnauthorized());
-	}
-
-	/**
-	 * 해당 되는 URL 패턴의 API가 있을 경우 Method가 다르면 401이 아니라 Method_Not_Allowed(405)가 반환됨
-	 * 따라서 이 테스트가 변동 사항이 없도록 만들 예정이 없는 URL로 테스트를 진행
-	 * @throws Exception
-	 */
-	@UnitTest
-	@Test
-	@DisplayName("회원가입, 로그인이 아닌 API에 대해서 Session이 없는 경우 인증되지 않음(401) 반환")
-	public void authRejectByAuthUserInterceptor() throws Exception {
-		// given
-		// NoSession
-
-		// when
-		ResultActions resultActions = mockMvc.perform(get("/api/test"));
-
-		// then
-		resultActions.andExpect(status().isUnauthorized());
+		resultActions.andExpect(status().isResetContent());
 	}
 }
