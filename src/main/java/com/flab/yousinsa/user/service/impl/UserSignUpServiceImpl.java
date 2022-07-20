@@ -14,7 +14,7 @@ import com.flab.yousinsa.user.repository.contract.UserRepository;
 import com.flab.yousinsa.user.service.PasswordEncoder;
 import com.flab.yousinsa.user.service.contract.UserSignUpService;
 import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
-import com.flab.yousinsa.user.service.exception.AuthException;
+import com.flab.yousinsa.user.service.exception.AuthenticationException;
 import com.flab.yousinsa.user.service.exception.SignUpFailException;
 import com.flab.yousinsa.user.service.exception.WithdrawFailException;
 
@@ -56,7 +56,7 @@ public class UserSignUpServiceImpl implements UserSignUpService {
 		Assert.notNull(withdrawUserId, "To withdraw user, valid withdrawUserId must given");
 
 		if (!Objects.equals(user.getId(), withdrawUserId)) {
-			throw new AuthException("Withdrawn userId must be equal to logined UserId");
+			throw new AuthenticationException("Withdrawn userId must be equal to logined UserId");
 		}
 
 		UserEntity userEntity = userRepository.findById(withdrawUserId).orElseThrow(
