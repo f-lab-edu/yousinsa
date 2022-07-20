@@ -6,13 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.flab.yousinsa.store.enums.StoreStatus;
 import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
-@ActiveProfiles(value = "test")
 @DataJpaTest
 class StoreRepositoryTest {
 
@@ -28,20 +26,20 @@ class StoreRepositoryTest {
 
 	@Test
 	@DisplayName("입점 신청")
-	public void storeEntry() {
+	public void createStore() {
 		// given
-		Store entryStore = Store.builder()
+		Store createStore = Store.builder()
 			.storeName("store")
 			.storeOwner(user)
 			.storeStatus(StoreStatus.REQUESTED)
 			.build();
 
 		// when
-		Store store = storeRepository.save(entryStore);
+		Store store = storeRepository.save(createStore);
 
 		// then
-		Assertions.assertEquals(entryStore.getStoreName(), store.getStoreName());
-		Assertions.assertEquals(entryStore.getStoreOwner().getUserName(), store.getStoreOwner().getUserName());
+		Assertions.assertEquals(createStore.getStoreName(), store.getStoreName());
+		Assertions.assertEquals(createStore.getStoreOwner().getUserName(), store.getStoreOwner().getUserName());
 	}
 
 }
