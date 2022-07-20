@@ -34,7 +34,7 @@ import com.flab.yousinsa.admin.service.contract.AdminStoreRequestService;
 import com.flab.yousinsa.admin.service.exceptions.NotPermittedException;
 import com.flab.yousinsa.annotation.UnitTest;
 import com.flab.yousinsa.store.enums.StoreStatus;
-import com.flab.yousinsa.user.config.AuthWebConfig;
+import com.flab.yousinsa.user.controller.aop.AuthenticateAspect;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
@@ -71,7 +71,7 @@ class AdminRequestStoreControllerTest {
 		RequestStoreDtoResponse requestStoreDtoResponse = new RequestStoreDtoResponse(storeId, StoreStatus.ACCEPTED);
 
 		MockHttpSession mockHttpSession = new MockHttpSession();
-		mockHttpSession.setAttribute(AuthWebConfig.Session.AUTH_USER, admin);
+		mockHttpSession.setAttribute(AuthenticateAspect.AUTH_USER, admin);
 
 		given(adminStoreRequestService.acceptStoreRequest(anyLong()))
 			.willReturn(requestStoreDtoResponse);
@@ -114,7 +114,7 @@ class AdminRequestStoreControllerTest {
 		RequestStoreDtoResponse requestStoreDtoResponse = new RequestStoreDtoResponse(storeId, StoreStatus.ACCEPTED);
 
 		MockHttpSession mockHttpSession = new MockHttpSession();
-		mockHttpSession.setAttribute(AuthWebConfig.Session.AUTH_USER, notAdmin);
+		mockHttpSession.setAttribute(AuthenticateAspect.AUTH_USER, notAdmin);
 
 		given(adminStoreRequestService.acceptStoreRequest(anyLong()))
 			.willReturn(requestStoreDtoResponse);

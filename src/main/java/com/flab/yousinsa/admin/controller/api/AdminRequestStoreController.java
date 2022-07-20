@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flab.yousinsa.admin.domain.dtos.RequestStoreDtoResponse;
 import com.flab.yousinsa.admin.service.contract.AdminStoreRequestService;
 import com.flab.yousinsa.admin.service.exceptions.NotPermittedException;
-import com.flab.yousinsa.user.controller.annotation.SessionAuth;
+import com.flab.yousinsa.user.controller.annotation.AuthSession;
+import com.flab.yousinsa.user.controller.annotation.SignInUser;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
@@ -25,11 +26,11 @@ public class AdminRequestStoreController {
 		this.storeRequestService = storeRequestService;
 	}
 
-	@SessionAuth
+	@AuthSession
 	@PutMapping("api/admin/v1/stores/{storeId}")
 	public ResponseEntity<RequestStoreDtoResponse> acceptStoreRequest(
 		@PathVariable("storeId") Long storeId,
-		AuthUser user
+		@SignInUser AuthUser user
 	) {
 		isAuthUserAdmin(user);
 
