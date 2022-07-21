@@ -1,4 +1,3 @@
-USE `yousinsa`;
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS `sample`;
