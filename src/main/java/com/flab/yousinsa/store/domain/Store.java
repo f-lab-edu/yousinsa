@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Builder
@@ -43,6 +44,7 @@ public class Store extends BaseTimeEntity {
 	@JoinColumn(name = "store_owner")
 	private UserEntity storeOwner;
 
+	@Setter
 	@Enumerated(value = EnumType.STRING)
 	@Column(name = "store_status")
 	private StoreStatus storeStatus;
