@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flab.yousinsa.store.v1.dtos.StoreDto;
 import com.flab.yousinsa.store.v1.service.StoreService;
-import com.flab.yousinsa.user.controller.annotation.SessionAuth;
+import com.flab.yousinsa.user.controller.annotation.AuthSession;
+import com.flab.yousinsa.user.controller.annotation.SignInUser;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,12 @@ public class StoreController {
 	 * @param user 세션에 담긴 user 데이터
 	 * @return 입점 신청 결과
 	 */
-	@SessionAuth
+	@AuthSession
 	@PostMapping("/stores")
 	public ResponseEntity<?> createStore(
 		@RequestBody StoreDto.Post request,
-		AuthUser user) {
-
+		@SignInUser AuthUser user
+	) {
 		Long id = ownerService.createStore(request, user);
 		return ResponseEntity.created(URI.create("/api/v1/stores/" + id)).build();
 	}

@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.yousinsa.store.v1.dtos.StoreDto;
 import com.flab.yousinsa.store.v1.service.StoreService;
-import com.flab.yousinsa.user.config.AuthWebConfig;
+import com.flab.yousinsa.user.controller.aop.AuthenticateAspect;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 
@@ -54,7 +54,7 @@ class StoreControllerTest {
 	public void setup() {
 		authUser = new AuthUser(1L, "test","test@test.com", UserRole.BUYER);
 		session = new MockHttpSession();
-		session.setAttribute(AuthWebConfig.Session.AUTH_USER, authUser);
+		session.setAttribute(AuthenticateAspect.AUTH_USER, authUser);
 	}
 
 	@AfterEach
