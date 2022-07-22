@@ -23,7 +23,7 @@ import com.flab.yousinsa.user.domain.enums.UserRole;
 import com.flab.yousinsa.user.repository.contract.UserRepository;
 import com.flab.yousinsa.user.service.PasswordEncoder;
 import com.flab.yousinsa.user.service.converter.SignUpDtoConverter;
-import com.flab.yousinsa.user.service.exception.AuthException;
+import com.flab.yousinsa.user.service.exception.AuthenticationException;
 import com.flab.yousinsa.user.service.exception.SignUpFailException;
 
 @ExtendWith(MockitoExtension.class)
@@ -135,7 +135,7 @@ class UserSignUpServiceImplTest {
 		long withDrawUserId = 1L;
 		Assertions.assertThatThrownBy(
 				() -> userSignUpServiceImpl.tryWithdrawUser(authUser, withDrawUserId)
-			).isInstanceOf(AuthException.class)
+			).isInstanceOf(AuthenticationException.class)
 			.hasMessageContaining("Withdrawn userId must be equal to logined UserId");
 	}
 

@@ -1,6 +1,6 @@
 package com.flab.yousinsa.user.controller.api;
 
-import static com.flab.yousinsa.user.config.AuthWebConfig.Session.*;
+import static com.flab.yousinsa.user.controller.aop.AuthenticateAspect.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.flab.yousinsa.user.controller.annotation.SessionAuth;
+import com.flab.yousinsa.user.controller.annotation.AuthSession;
+import com.flab.yousinsa.user.controller.annotation.SignInUser;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.dtos.request.SignInRequestDto;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
@@ -58,6 +59,7 @@ public class UserController {
 		return ResponseEntity.ok(signInResponseDto);
 	}
 
+	@AuthSession
 	@DeleteMapping("api/v1/users/sign-out")
 	public ResponseEntity<Void> signOutUser(HttpSession httpSession) {
 		try {
@@ -73,9 +75,9 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.RESET_CONTENT).build();
 	}
 
-	@SessionAuth
+	@AuthSession
 	@DeleteMapping("api/v1/users/{userId}")
-	public ResponseEntity<Void> withDrawUser(AuthUser user, @PathVariable("userId") Long userId,
+	public ResponseEntity<Void> withDrawUser(@SignInUser AuthUser user, @PathVariable("userId") Long userId,
 		HttpSession httpSession) {
 		userSignUpService.tryWithdrawUser(user, userId);
 
