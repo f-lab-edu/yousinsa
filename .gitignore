@@ -68,3 +68,4 @@ atlassian-ide-plugin.xml
 
 .idea
 db
+src/main/resources/static/docs/
