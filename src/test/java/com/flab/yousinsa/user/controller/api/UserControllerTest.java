@@ -10,6 +10,7 @@ import static org.springframework.restdocs.snippet.Attributes.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -31,6 +33,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.yousinsa.annotation.UnitTest;
 import com.flab.yousinsa.user.controller.aop.AuthenticateAspect;
+import com.flab.yousinsa.user.controller.config.SpringTestAopConfig;
 import com.flab.yousinsa.user.domain.dtos.AuthUser;
 import com.flab.yousinsa.user.domain.dtos.request.SignInRequestDto;
 import com.flab.yousinsa.user.domain.dtos.request.SignUpRequestDto;
@@ -40,9 +43,11 @@ import com.flab.yousinsa.user.domain.entities.UserEntity;
 import com.flab.yousinsa.user.domain.enums.UserRole;
 import com.flab.yousinsa.user.service.contract.UserSignInService;
 import com.flab.yousinsa.user.service.contract.UserSignUpService;
+import com.flab.yousinsa.user.service.exception.AuthenticationException;
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @WebMvcTest(UserController.class)
+@ContextConfiguration(classes = SpringTestAopConfig.class)
 @AutoConfigureRestDocs
 @MockBean(JpaMetamodelMappingContext.class)
 class UserControllerTest {
@@ -199,8 +204,8 @@ class UserControllerTest {
 
 		// when
 		ResultActions resultActions = mockMvc.perform(
-			RestDocumentationRequestBuilders.delete("/api/v1/users/{userId}", deleteTargetUserId).session(
-				mockHttpSession));
+			RestDocumentationRequestBuilders.delete("/api/v1/users/{userId}", deleteTargetUserId)
+				.session(mockHttpSession));
 
 		// then
 		resultActions.andExpect(status().isNoContent())
@@ -229,6 +234,10 @@ class UserControllerTest {
 		ResultActions resultActions = mockMvc.perform(delete("/api/v1/users/sign-out"));
 
 		// then
-		resultActions.andExpect(status().isResetContent());
+		resultActions.andExpect(status().isUnauthorized())
+			.andExpect(result -> Assertions.assertThat(result.getResolvedException())
+				.isInstanceOf(AuthenticationException.class)
+				.hasMessageContaining("Valid session does not exists")
+			);
 	}
 }
