@@ -135,7 +135,7 @@ class AdminRequestStoreControllerTest {
 		resultActions.andExpect(status().isForbidden())
 			.andExpect((result) -> Assertions.assertThat(result.getResolvedException())
 				.isInstanceOf(AuthorizationException.class)
-				.hasMessageContaining("Store request can be accepted by admin")
+				.hasMessageContaining("Requested handler need designated roles")
 			);
 	}
 
